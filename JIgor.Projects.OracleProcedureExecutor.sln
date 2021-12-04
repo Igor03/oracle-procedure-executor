@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JIgor.Projects.OracleProcedureExecutor.Samples", "JIgor.Projects.OracleProcedureExecutor.Samples\JIgor.Projects.OracleProcedureExecutor.Samples.csproj", "{87D5125B-6702-4230-90F6-9E2251FFACAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JIgor.Projects.OracleProcedureExecutor.Services", "JIgor.Projects.OracleProcedureExecutor.Services\JIgor.Projects.OracleProcedureExecutor.Services.csproj", "{B8CFC1CF-4827-473E-9957-5A73E1DC4ACF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87D5125B-6702-4230-90F6-9E2251FFACAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87D5125B-6702-4230-90F6-9E2251FFACAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87D5125B-6702-4230-90F6-9E2251FFACAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87D5125B-6702-4230-90F6-9E2251FFACAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8CFC1CF-4827-473E-9957-5A73E1DC4ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8CFC1CF-4827-473E-9957-5A73E1DC4ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8CFC1CF-4827-473E-9957-5A73E1DC4ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8CFC1CF-4827-473E-9957-5A73E1DC4ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4793544D-2BDF-4D35-A9F0-CA93D8A26EBB}
+	EndGlobalSection
+EndGlobal
