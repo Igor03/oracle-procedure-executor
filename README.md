@@ -100,5 +100,8 @@ BEGIN
 END;
 ```
 
+## Important
+This application uses [Visual Studio Secrets Manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows) to store secrets locally. For instance, we are not showing out database connection string. Hence, you'll have to configure it in your own environment.
+
 ## Contact
 In case you need any help running/understanding this, feel free to contact me and I'll try to help you the best way I can.
