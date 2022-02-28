@@ -35,7 +35,6 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
         {
             InProductOriginalPriceArray.Value = productsPrices.ToArray();
             InProductOriginalPriceArray.Size = productsPrices.Count();
-            InProductOriginalPriceArray.ArrayBindSize = GenerateIntegerArrayBindSize(productsPrices.Count());
 
             InProductTypeArray.Value = productsTypes.ToArray();
             InProductTypeArray.Size = productsTypes.Count();

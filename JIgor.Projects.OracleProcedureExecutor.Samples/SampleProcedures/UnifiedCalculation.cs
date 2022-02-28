@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using JIgor.Projects.OracleProcedureExecutor.Samples.models.Input;
 using JIgor.Projects.OracleProcedureExecutor.Samples.models.Output;
 using JIgor.Projects.OracleProcedureExecutor.Services;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
 {
@@ -48,7 +50,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.Number).ToArray().Length,
                 Value = _header.Items.Select(p => p.Number).ToArray(),
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 16), 
+                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 12), 
             };
             
             var inItemUnitPrice = new OracleParameter
@@ -58,7 +60,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.UnitPrice).ToArray().Length,
                 Value = _header.Items.Select(p => p.UnitPrice).ToArray(),
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.UnitPrice).ToArray().Length, 16), 
+                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.UnitPrice).ToArray().Length, 12), 
             };
             
             var inItemQuantity = new OracleParameter
@@ -68,7 +70,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.Quantity).ToArray().Length,
                 Value = _header.Items.Select(p => p.Quantity).ToArray(),
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Quantity).ToArray().Length, 16), 
+                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Quantity).ToArray().Length, 12), 
             };
             
             var inItemDescription = new OracleParameter
@@ -96,8 +98,9 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 Direction = ParameterDirection.Output,
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.Number).ToArray().Length,
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 16), 
-                OracleDbType = OracleDbType.Decimal,
+                // ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 12), 
+                // OracleDbType = OracleDbType.Decimal,
+                Value = Array.Empty<decimal>()
             };
             
             var outItemTaxBBB = new OracleParameter
@@ -106,8 +109,9 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 Direction = ParameterDirection.Output,
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.Number).ToArray().Length,
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 16), 
-                OracleDbType = OracleDbType.Decimal,
+                // ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 12), 
+                // OracleDbType = OracleDbType.Decimal,
+                Value = Array.Empty<decimal>(),
             };
             
             var outItemTaxCCC = new OracleParameter
@@ -116,13 +120,30 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 Direction = ParameterDirection.Output,
                 CollectionType = OracleCollectionType.PLSQLAssociativeArray,
                 Size = _header.Items.Select(p => p.Number).ToArray().Length,
-                ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 16), 
-                OracleDbType = OracleDbType.Decimal,
+                // ArrayBindSize = GenerateArrayBindSize(_header.Items.Select(p => p.Number).ToArray().Length, 12), 
+                // OracleDbType = OracleDbType.Decimal,
+                Value = Array.Empty<decimal>()
             };
             _ = _oracleExecutor.ExecuteStoredProcedure(ProcedureName, 
                 inHeaderId, 
                 inTaxRate, inItemNumber, inItemUnitPrice, inItemQuantity, inItemDescription, outTotalAmount, outItemTaxAAA, outItemTaxBBB, outItemTaxCCC);
 
+            // That's important
+            var x = (decimal[]) outItemTaxAAA.Value;
+            
+            var @return = new OutputHeader()
+            {
+                Id = _header.Id,
+                TotalAmount = (decimal) outTotalAmount.Value,
+                TaxRate = _header.TaxRate,
+                ItemsCalculation = new List<OutputItemCalculation>()
+                {
+                    new OutputItemCalculation()
+                    {
+                    }
+                }
+            };
+            
             return null;
         }
         
