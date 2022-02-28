@@ -4,7 +4,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.models.Output
 {
     public class OutputHeader
     {
-        public int Id { get; set; }
+        public decimal Id { get; set; }
         
         public decimal TaxRate { get; set; }
         

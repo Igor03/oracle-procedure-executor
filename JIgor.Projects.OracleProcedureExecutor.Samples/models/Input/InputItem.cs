@@ -2,7 +2,7 @@
 {
     public class InputItem
     {
-        public InputItem(int number, decimal unitPrice, int quantity, string itemDescription)
+        public InputItem(decimal number, decimal unitPrice, decimal quantity, string itemDescription)
         {
             Number = number;
             UnitPrice = unitPrice;
@@ -14,9 +14,9 @@
         {
         }
 
-        public int Number { get; set; }
+        public decimal Number { get; set; }
         public decimal UnitPrice { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public string ItemDescription { get; set; }
     }
 }
