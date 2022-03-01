@@ -131,18 +131,18 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
             // That's important
             var x = (decimal[]) outItemTaxAAA.Value;
             
-            var @return = new OutputHeader()
-            {
-                Id = _header.Id,
-                TotalAmount = (decimal) outTotalAmount.Value,
-                TaxRate = _header.TaxRate,
-                ItemsCalculation = new List<OutputItemCalculation>()
-                {
-                    new OutputItemCalculation()
-                    {
-                    }
-                }
-            };
+            // var @return = new OutputHeader()
+            // {   
+            //     Id = _header.Id,
+            //     TotalAmount = (decimal) outTotalAmount.Value,
+            //     TaxRate = _header.TaxRate,
+            //     ItemsCalculation = new List<OutputItemCalculation>()
+            //     {
+            //         new OutputItemCalculation()
+            //         {
+            //         }
+            //     }
+            // };
             
             return null;
         }
