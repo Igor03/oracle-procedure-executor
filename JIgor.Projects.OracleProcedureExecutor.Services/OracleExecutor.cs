@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JIgor.Projects.OracleProcedureExecutor.Services.DataContext;
+using JIgor.Projects.OracleProcedureExecutor.Services.Support;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
@@ -28,6 +29,14 @@ namespace JIgor.Projects.OracleProcedureExecutor.Services
 
             return this._oracleProcedureExecutorDataContext
                 .Database.ExecuteSqlRaw(BuildProcedureCall(procedureName, oracleParameters), oracleParameters.ToList());
+        }
+        
+        public int ExecuteStoredProcedure(ProcedureMetadata procedure)
+        {
+            _ = procedure ?? throw new ArgumentNullException(nameof(procedure));
+            
+            return this._oracleProcedureExecutorDataContext
+                .Database.ExecuteSqlRaw(procedure.ToSqlStatement(), procedure.Parameters);
         }
 
         private string BuildProcedureCall(string procedureName, IEnumerable<OracleParameter> oracleParameters)
