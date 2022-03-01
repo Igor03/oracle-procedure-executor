@@ -34,22 +34,22 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples
             //
             // #endregion
             //
-            #region Sample 3
-            
-            var productsPrices = new List<decimal>()
-            {
-                10M, 1.2M, 12.23M
-            };
-            
-            var productTypes = new List<string>()
-            {
-                "Type1", "Type2", "Type3"
-            };
-            
-            var applyTaxes = new ApplyTaxes(procedureExecutor);
-            applyTaxes.Run(productsPrices, productTypes);
-            
-            #endregion
+            // #region Sample 3
+            //
+            // var productsPrices = new List<decimal>()
+            // {
+            //     10M, 1.2M, 12.23M
+            // };
+            //
+            // var productTypes = new List<string>()
+            // {
+            //     "Type1", "Type2", "Type3"
+            // };
+            //
+            // var applyTaxes = new ApplyTaxes(procedureExecutor);
+            // applyTaxes.Run(productsPrices, productTypes);
+            //
+            // #endregion
 
             var headerInput = new InputHeader()
             {
