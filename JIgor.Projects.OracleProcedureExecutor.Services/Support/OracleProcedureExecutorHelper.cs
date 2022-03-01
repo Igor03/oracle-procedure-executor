@@ -15,7 +15,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Services.Support
             }
             return arrayBindSize;
         }
-
+        
         public static OracleParameter CreateOracleParameter(
             string name, 
             OracleDbType type,

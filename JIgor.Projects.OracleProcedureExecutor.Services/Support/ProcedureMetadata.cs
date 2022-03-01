@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
 
 namespace JIgor.Projects.OracleProcedureExecutor.Services.Support
@@ -20,7 +23,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Services.Support
 
         public List<OracleParameter> Parameters { get; set; }
 
-        public OracleParameter[] GetOutputParameters()
+        public List<OracleParameter> GetOutputParameters()
         {
             var outputParameters = new List<OracleParameter>();
 
@@ -32,7 +35,14 @@ namespace JIgor.Projects.OracleProcedureExecutor.Services.Support
                 }
             });
             
-            return outputParameters.ToArray();
+            return outputParameters;
+        }
+
+        public OracleParameter GetOutputParameterByName(string name)
+        {
+            _ = name ?? throw new ArgumentNullException(nameof(name));
+            var outputParameters = this.GetOutputParameters();
+            return outputParameters.FirstOrDefault(p => p.ParameterName == name);
         }
 
         public void AddParameter(OracleParameter parameter)

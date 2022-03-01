@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using JIgor.Projects.OracleProcedureExecutor.Samples.models.Input;
 using JIgor.Projects.OracleProcedureExecutor.Samples.models.Output;
 using JIgor.Projects.OracleProcedureExecutor.Services;
 using JIgor.Projects.OracleProcedureExecutor.Services.Support;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Oracle.ManagedDataAccess.Client;
 using static System.Data.ParameterDirection;
 using static JIgor.Projects.OracleProcedureExecutor.Services.Support.OracleProcedureExecutorHelper;
@@ -23,6 +26,7 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
             _header = header;
         }
 
+        // This goes to the repository
         public OutputHeader Run()
         {
             var generalArraySize = this._header.Items.Count();
@@ -47,6 +51,9 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 if (param.Value.GetType() == typeof(decimal[]))
                 {
                     var x = (decimal[]) param.Value;
+
+                    var k = (decimal[])procedure.GetOutputParameterByName("outItemTaxBBB").Value;
+
                     foreach (var value in x)
                     {
                         Console.WriteLine(value);
@@ -58,7 +65,32 @@ namespace JIgor.Projects.OracleProcedureExecutor.Samples.SampleProcedures
                 }
             }
 
-            return null;
+            var @return = MapReturnObject(procedure);
+            return @return;
+        }
+
+        private OutputHeader MapReturnObject(ProcedureMetadata procedure)
+        {
+            var outputParams = procedure.GetOutputParameters();
+            var taxes = new List<OutputItemCalculation>();
+            var i = 0;
+
+            for (int l = 0; l < 3; l++)
+            {
+                var tax = new OutputItemCalculation
+                {
+                    ItemTaxAAA = ((decimal[])procedure.GetOutputParameterByName("outItemTaxAAA").Value)[l],
+                    ItemTaxBBB = ((decimal[])procedure.GetOutputParameterByName("outItemTaxBBB").Value)[l],
+                    ItemTaxCCC = ((decimal[])procedure.GetOutputParameterByName("outItemTaxCCC").Value)[l]
+                };
+                
+                taxes.Add(tax);
+            }
+
+            return new OutputHeader()
+            {
+                ItemsCalculation = taxes,
+            };
         }
     }
 }
